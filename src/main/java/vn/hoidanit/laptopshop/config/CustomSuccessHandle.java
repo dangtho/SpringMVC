@@ -1,6 +1,8 @@
 package vn.hoidanit.laptopshop.config;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.RedirectStrategy;
@@ -15,14 +17,26 @@ public class CustomSuccessHandle implements AuthenticationSuccessHandler {
   private RedirectStrategy redirectStrategy = new org.springframework.security.web.DefaultRedirectStrategy();
 
   protected String determineTargetUrl(Authentication authentication) {
-    String role = authentication.getAuthorities().toString();
-    if (role.contains("ADMIN")) {
-      return "/admin";
+    // String role = authentication.getAuthorities().toString();
+    // if (role.contains("ADMIN")) {
+    //   return "/admin";
+    // }
+    // return "/home";
+    Map <String, Object> roleTargetUrl = Map.of(
+      "ROLE_ADMIN", "/admin",
+      "ROLE_USER", "/home"
+    );
+    final Collection<?> authorities = authentication.getAuthorities();
+    for (var entry : authorities) {
+      String authorityName = entry.toString();
+      if (roleTargetUrl.containsKey(authorityName)) {
+        return roleTargetUrl.get(authorityName).toString();
+      }
     }
-    return "/home";
+    throw new IllegalStateException();
   }
   private void clearAuthenticationAttributes(HttpServletRequest request) {
-    var session = request.getSession(false);
+    var session = request.getSession();
     if (session == null) {
       return;
     }
@@ -32,7 +46,7 @@ public class CustomSuccessHandle implements AuthenticationSuccessHandler {
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
       Authentication authentication) throws IOException, ServletException {
-    // TODO Auto-generated method stub
+
     String targetUrl = determineTargetUrl(authentication);
     if (response.isCommitted()) {
       return;
