@@ -1,0 +1,82 @@
+/* 1. Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+/* 3. Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  max-width: 1200px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 4. Media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 5. Form elements inherit font */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 6. Remove default list styles */
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+/* 7. Anchor defaults */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 8. Improve text rendering */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+Button {
+  background-color: #007bff;
+  color: aqua;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-create {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.divider {
+  height: 1px;
+  background-color: #4b4a4a;
+  margin: 10px 0 20px 0;
+}
