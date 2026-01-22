@@ -1,0 +1,67 @@
+package vn.hoidanit.laptopshop.controller.client;
+
+import java.util.List;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import jakarta.validation.Valid;
+import vn.hoidanit.laptopshop.domain.Product;
+import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.domain.dto.RegisterDto;
+import vn.hoidanit.laptopshop.service.ProductService;
+import vn.hoidanit.laptopshop.service.UserService;
+
+@Controller
+public class HomePageController {
+    private final ProductService productService;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
+    public HomePageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder) {
+        this.productService = productService;
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+    }
+ @GetMapping("/home")
+ public String getHomePage(Model model) {
+    List<Product> products = this.productService.getAllProducts();
+    model.addAttribute("products", products);
+    return "client/homepage/show";
+}
+// Register
+@GetMapping("/register")
+public String getRegisterPage(Model model) {
+    model.addAttribute("registerDto", new RegisterDto());
+    return "client/auth/register";
+}
+@PostMapping("/register")
+public String postRegisterPage(Model model,
+     @ModelAttribute("registerDto") @Valid RegisterDto registerDto,
+      BindingResult bindResult) {
+    List<FieldError> errors = bindResult.getFieldErrors();
+    for (FieldError error : errors ) {
+        System.out.println (">>>>>>>>>>>>>> "+error.getField() + " - " + error.getDefaultMessage());
+    }
+    if (bindResult.hasErrors()) {
+        return "client/auth/register";
+    }
+    User user = this.userService.registerDtoUser(registerDto);
+    String hashedPassword = passwordEncoder.encode(user.getPassword());
+    user.setPassword(hashedPassword);
+    user.setRole(this.userService.getRole("USER"));
+    System.out.println(">>>>>>>>User: " + user.toString());
+    this.userService.handleSaveUser(user);
+    return "redirect:/login";
+}
+// Login
+@GetMapping("/login")
+public String getLoginPage(Model model) {
+    return "client/auth/login";
+}
+}
