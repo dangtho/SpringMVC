@@ -64,4 +64,8 @@ public String postRegisterPage(Model model,
 public String getLoginPage(Model model) {
     return "client/auth/login";
 }
+@GetMapping("/403")
+public String getDeniedPage(Model model) {
+    return "client/auth/denied";
+}
 }

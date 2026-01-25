@@ -33,6 +33,7 @@ public class Product {
   private String sold = "0";
   private String factory;
   private String target;
+
   @Override
   public String toString() {
     return "Product [id=" + id + ", name=" + name + ", price=" + price + ", image=" + image + ", shortDescription="
