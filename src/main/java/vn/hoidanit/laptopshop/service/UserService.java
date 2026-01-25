@@ -58,4 +58,12 @@ public class UserService {
   public User getUserByEmail(String email) {
     return this.userRepository.findByEmail(email);
   }
+  // order
+    public List<User> getAllUsersSortedByNameAsc() {
+      return this.userRepository.findAllByOrderByFullNameAsc();
+  }
+  
+  public List<User> getAllUsersSortedByNameDesc() {
+      return this.userRepository.findAllByOrderByFullNameDesc();
+  }
 }

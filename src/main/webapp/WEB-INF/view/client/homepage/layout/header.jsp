@@ -26,12 +26,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         </div>
         <div class="d-flex m-3 me-0">
           <c:if test="${not empty pageContext.request.userPrincipal}">
-            <a href="#" class="position-relative me-4 my-auto">
+            <a href="/cart-detail" class="position-relative me-4 my-auto">
               <i class="fa fa-shopping-bag fa-2x"></i>
               <span
                 class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                 style="top: -5px; left: 15px; height: 20px; min-width: 20px"
-                >3</span
+                >${sessionScope.sum}</span
               >
             </a>
             <div class="dropdown my-auto">
@@ -63,10 +63,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       border-radius: 50%;
                       overflow: hidden;
                     "
-                    src="/images/product/1711078092373-asus-01.png"
+                    src="/images/avatar/${sessionScope.avatar}"
                   />
                   <div class="text-center my-3">
-                    <c:out value="${pageContext.request.userPrincipal.name}" />
+                    <c:out value="${sessionScope.fullName}" />
                   </div>
                 </li>
 
@@ -90,9 +90,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             </div>
           </c:if>
           <c:if test="${empty pageContext.request.userPrincipal}">
-            <a href="/login" class="position-relative me-4 my-auto">
-              dang nhap
-            </a>
+            <a href="/login" class="position-relative me-4 my-auto"> Login </a>
           </c:if>
         </div>
       </div>

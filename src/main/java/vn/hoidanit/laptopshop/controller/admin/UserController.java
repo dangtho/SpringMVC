@@ -49,10 +49,22 @@ private final PasswordEncoder passwordEncoder;
     return "admin/user/create";
   }
   @RequestMapping("/admin/user")
-  public String getUsers(Model model) {
-    List<User> users = this.userService.getAll();
+  public String getUsers(Model model, @RequestParam(value = "sort", required = false) String sort) {
+    // List<User> users = this.userService.getAll();
+    // System.out.println("Users list: " + users);
+    // model.addAttribute("usersList", users);
+    // return "admin/user/show";
+    List<User> users;
+    if ("desc".equalsIgnoreCase(sort)) {
+        users = this.userService.getAllUsersSortedByNameDesc();
+    } else if ("asc".equalsIgnoreCase(sort)) {
+        users = this.userService.getAllUsersSortedByNameAsc();
+    } else {
+        users = this.userService.getAll();
+    }
     System.out.println("Users list: " + users);
     model.addAttribute("usersList", users);
+    model.addAttribute("currentSort", sort);
     return "admin/user/show";
   }
 

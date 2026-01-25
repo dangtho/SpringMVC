@@ -39,6 +39,20 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 >
               </div>
               <div class="col-md-12 col-m2 mx-auto">
+                <!-- Filter Buttons -->
+                <div class="filter-section" style="margin-bottom: 20px;">
+                    <label>Filter by Name:</label>
+                    <a href="/admin/user?sort=asc" class="btn btn-primary">
+                        <i class="fas fa-sort-alpha-down"></i> A to Z
+                    </a>
+                    <a href="/admin/user?sort=desc" class="btn btn-primary">
+                        <i class="fas fa-sort-alpha-up"></i> Z to A
+                    </a>
+                    <a href="/admin/user" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i> Reset
+                    </a>
+                </div>
+
                 <table class="table table-hover table-bordered">
                   <thead>
                     <tr>
