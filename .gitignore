@@ -1,0 +1,36 @@
+# Target folder (Maven build output)
+target/
+target/**
+
+# Hidden files (files starting with dot)
+.*
+
+# But don't ignore .gitignore itself
+!.gitignore
+
+# Don't ignore .gitattributes if you have one
+!.gitattributes
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Dependencies
+node_modules/
+.npm
+
+# Build files
+*.class
+*.jar
+*.war
+
+# Logs
+*.log
+logs/
